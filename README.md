@@ -7,5 +7,7 @@ A senior design capstone project for undergraduate electrical and computer engin
    - [Daniel Morton](https://github.com/Daniel8942): role
 
 ### Overview
+Project overview and description.....
 
+### Components
 
