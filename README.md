@@ -9,5 +9,8 @@ A senior design capstone project for undergraduate electrical and computer engin
 ### Overview
 Project overview and description.....
 
-### Components
+### Stack
+   - Database: InfluxDB
+   - Backend: NodeJS + Express
+   - Frontend: React
 
