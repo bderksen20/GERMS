@@ -1,0 +1,106 @@
+.GroupPage{
+  text-align: center;
+}
+
+.gp-grid{
+  background-color: cornflowerblue;
+  display: grid;
+  
+  height: 100vh;
+  width: 99vw;
+  gap: 10px;
+  grid-template-rows: 1fr 5fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 10px;
+}
+
+.img-div{
+
+}
+
+.img-cropper {
+  width: 275px;
+  height: 275px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.cropped-img {
+ width: 100%;
+ margin-top: -15%;
+}
+
+.cropped-img2 {
+  width: 100%;
+  
+ }
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.aboutpane{
+  background-color: white;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.gmpane{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nametag{
+  margin-top: 20px;
+  font-size: x-large;
+}
+
+.navpane{
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.timeupdtext{
+  color: green;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
