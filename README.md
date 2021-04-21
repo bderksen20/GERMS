@@ -17,3 +17,6 @@ Python programs on Pi use InfluxDB client to establish connection with database 
    - Backend: NodeJS + Express
    - Frontend: React
 
+### Frontend
+
+![frontend image](./images/frontend.png?raw=true "Title")
