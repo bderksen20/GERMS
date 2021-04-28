@@ -1,13 +1,13 @@
 # GERMS - Green Energy Rooftop Measurement System
 
 A senior design capstone project for undergraduate electrical and computer engineering (ECE) studies at The University of Pittsburgh by...
-   - [Bill Derksen](https://github.com/bderksen20): role
-   - [Evan Gzesh](https://github.com/EvanGzesh): role
-   - [Anthony Popovski](https://github.com/anthpops): role
-   - [Daniel Morton](https://github.com/Daniel8942): role
+   - [Bill Derksen](https://github.com/bderksen20): software and computer engineering
+   - [Evan Gzesh](https://github.com/EvanGzesh): electrical engineering + pi programming
+   - [Anthony Popovski](https://github.com/anthpops): electrical engineering + pi programming
+   - [Daniel Morton](https://github.com/Daniel8942): electrical engineering + pi programming
 
 ### Overview
-Project overview and description.....
+This repo contains software and programs used for our project.
 
 ### Stack
 
