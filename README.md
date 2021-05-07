@@ -22,3 +22,9 @@ Python programs on Pi use InfluxDB client to establish connection with database 
 Below is an image of the current frontend. The table and plots each display the most recent data stored in the database and will update in realtime when new data is posted to the database. The table displays the single most recent reading for each sensor while the bar graph and cartesian plots show a user specified number of most recent points for the desired sensor measurement.
 
 ![frontend image](./images/frontend.png?raw=true "Title")
+
+### Setup
+
+1. Install NodeJS on machine, make sure that npm (node package manager) is also installed
+2. Run `npm install` in the frontend directory to install necessary packages 
+3. Run `npm install` in the backend directory to install necessary packages 
