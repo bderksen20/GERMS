@@ -36,3 +36,4 @@ Launch frontend: run `npm start` in the respective directory
 
 Launch the backend: run `node bin/www` in the respective directory  
 - default domain is http://localhost:3000/
+- database query/routing/connecion can be configured in [software_stack/backend/routes/influxtest.js](software_stack/backend/routes/influxtest.js)
