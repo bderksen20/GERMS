@@ -28,3 +28,11 @@ Below is an image of the current frontend. The table and plots each display the 
 1. Install NodeJS on machine, make sure that npm (node package manager) is also installed
 2. Run `npm install` in the frontend directory [sofware_stack/.](./software_stack) to install necessary frontend packages 
 3. Run `npm install` in the backend directory [sofware_stack/backend/.](./software_stack/backend) to install necessary backend packages 
+
+### Running
+
+Launch frontend: run `npm start` in the respective directory  
+- default domain is http://localhost:3001/
+
+Launch the backend: run `node bin/www` in the respective directory  
+- default domain is http://localhost:3000/
