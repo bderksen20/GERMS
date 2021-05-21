@@ -3,31 +3,43 @@ import anemo, precip, phase, power, bme280, sgp30, si1145, ads1015_mod #import a
 from influxdb import InfluxDBClient
 import datetime
 
+# This function runs every minute
 def every_minute():
+    # Sets timer to run code again in 60 seconds
     threading.Timer(60, every_minute).start()
+    
+    # Record date and time
     timestamp = datetime.datetime.now()
     print(timestamp)
 
+    # Record light data from si1145 sensor
     [vis, IR, uvIndex] = si1145.si()
     
     print("Visible light: %d lx" % vis)
     print("IR light: %d lx" % IR)
     print("UV index: %.2f" % uvIndex)
     
+    # Record temperature, humidity, & pressure from bme280 sensor
     [temp, humid, press] = bme280.bme()
     
     print("Temperature: %.2f deg F" % temp)
     print("Humidity: %.2f %%" % humid)
     print("Pressure: %.2f hPa" % press)
     
+    # Record eCO2 and TVOC from sgp30 sensor
     [eCO2, TVOC] = sgp30.sgp()
     
     print("CO2eq: %.2f ppm" % eCO2)
     print("TVOC: %.2f ppb" % TVOC)
     
+    # Record raw ADC voltage values to determine unscaled RMS values. These functions run for 5 seconds each by default
     Vrms_unscaled = ads1015_mod.vrms()
     Irms_unscaled = ads1015_mod.irms()
+    
+    # Record phase angle and frequency values. This function runs for 5 seconds by default
     [theta, freq] = phase.phase()
+    
+    # Calculate real power, reactive power, power factor, and power factor lead/lag status
     [P, Q, S, pf, pfstatus] = power.power(Vrms_unscaled, Irms_unscaled, freq, theta)
     
     theta_d = theta*180/3.1415927
@@ -38,6 +50,7 @@ def every_minute():
     print("Theta: %f deg" % theta_d)
     print("Freq: %f Hz" % freq)
     
+    # Record wind speed. This function runs for 20 seconds by default
     #anemo.t_run = 2 #uncomment to speed up testing
     wind_speed = anemo.anemo()
     [wind_direction, wind_angle] = ads1015_mod.getdirection()
@@ -45,11 +58,14 @@ def every_minute():
     print("Wind speed: %f" % wind_speed)
     print("Wind direction: %s" % wind_direction)
     
+    # Record precipation rate. This function runs for 20 seconds by default
     #precip.t_run = 2 #uncomment to speed up testing
     precip_rate = precip.precip()
     
     print("Precip rate: %f\n" % precip_rate)
     
+    
+    # Send data to database
     global client
     
     # Influx
