@@ -9,45 +9,50 @@ import numpy
 
 i2c = busio.I2C(board.SCL, board.SDA)
 ads = ADS.ADS1015(i2c)
+
+# define channels
 chan0 = AnalogIn(ads, ADS.P0)
 chan1 = AnalogIn(ads, ADS.P1)
 chan2 = AnalogIn(ads, ADS.P2)
     
+#set gain for most precision, set to continuous mode    
 ads.gain = 1
 ads.mode = 0x0
     
 def vrms():
-    
+    #create an array for voltage values to be read, read in values for 5 seconds
     Vin = []
     runtime = 5
     t_end = time.time() + runtime
     
+    #fill in the array for 5 seconds
     while time.time() < t_end:
         Vin.append(chan0.voltage)
     N = len(Vin)
     
+    #for testing purposes
     Vin_np = numpy.array(Vin)
     Vavg = numpy.average(Vin_np)
-    
-    #print("Vrms function:\nVavg is %f" % Vavg)
-    #print("%d datapoints collected" % N)
-
+   
+    #find the sum of squares of all voltages
     sum = 0
     for i in Vin:
         V = i - Vavg
         Vsquare = V ** 2
         sum = sum + Vsquare
         
+    # this is the rms voltage that the ADC reads, which has been scaled down by transformer and filter
     Vrms_unscaled = (sum/N) ** (1/2)
-    #print("vrms unscaled = %f" % Vrms_unscaled)
     
     return Vrms_unscaled
 
 def irms():
-    
+    #create an array for current values to be read, read in values for 5 seconds
     Vin = []
     runtime = 5
     t_end = time.time() + runtime
+    
+     #fill in the array for 5 seconds
     while time.time() < t_end:
         Vin.append(chan1.voltage)
     N = len(Vin)
@@ -55,9 +60,7 @@ def irms():
     Vin_np = numpy.array(Vin)
     Vavg = numpy.average(Vin_np)
 
-    #print("Irms function:\nVavg is %f" % Vavg)
-    #print("%d datapoints collected" % N)
-
+    #find the sum of squares of all voltages
     sum = 0
     for i in Vin:
         V = i - Vavg
