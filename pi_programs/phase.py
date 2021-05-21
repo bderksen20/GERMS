@@ -7,38 +7,38 @@ Vzc_GPIO = 16
 Izc_GPIO = 6
 
 # Define global constants
-t_run = 5
-#delta_t = 0.00135 # Still needs calibration
-delta_t = -0.00135
+t_run = 5 # Run for 5 seconds
+delta_t = -0.00135 # Accounts for phase offset due to measurement error. If angle is incorrect, try flipping the sign. Sometimes this fixes the problem but we're not sure why
 pi = 3.1415926535897
 
 # Define global variables
-t_Vzc = None
-t_Izc = None
-t_Izc_first = None
-t_elapsed = []
+t_Vzc = None # Time of most recent voltage zero cross
+t_Izc = None # Time of most recent current zero cross
+t_Vzc_first = None # Time of first voltage zero cross
+t_elapsed = [] # Array of elpased times between voltage and current zero cross
 counter = 0
 
 # Function to run on voltage zero-cross
 def Vzc_callback(channel):
     global t_Vzc
-    t_Vzc = time.time()
+    t_Vzc = time.time() # Update time of most recent voltage zero cross
 
     global t_Vzc_first, counter
     if counter==0:
-        t_Vzc_first = t_Vzc
+        t_Vzc_first = t_Vzc # Record time of first voltage zero cross
 
-    counter += 1
+    counter += 1 # Increment counter
 
 # Function to run on current zero-cross
 def Izc_callback(channel):
     global t_Izc
-    t_Izc = time.time()
+    t_Izc = time.time() # Update time of most recent current zero cross
         
     global t_Vzc, t_elapsed
     if t_Vzc != None:
-        t_elapsed.append(t_Izc-t_Vzc)
+        t_elapsed.append(t_Izc-t_Vzc) # Calculate elapsed time between most recent voltage and current zero cross, and append to array
 
+# Main function
 def phase():
     global t_Vzc, t_Izc, t_Izc_first, t_elapsed, counter, delta_t, t_run, pi
     
@@ -69,20 +69,21 @@ def phase():
     GPIO.cleanup()
     
     if len(t_elapsed)>0:
-        # Compute average
-        t_elapsed_np = numpy.array(t_elapsed)
-        t_elapsed_ave = numpy.average(t_elapsed_np)
+        # Compute average elapsed time
+        t_elapsed_np = numpy.array(t_elapsed) # Convert to numpy array
+        t_elapsed_ave = numpy.average(t_elapsed_np) # Calculate average elapsed time
     else:
         t_elapsed_ave = None
     
     if counter >1:
-        # Calculate frequency and phase
+        # Calculate frequency
         freq = (counter-1)/(t_Vzc - t_Vzc_first)
         
     else:
         freq = 0
     
     if t_elapsed_ave != None:
+        # Calculate phase
         phase = (t_elapsed_ave - delta_t)*freq*2*pi
     else:
         phase = 0
